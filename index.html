@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountain Mayhem FMS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="timer-bar"></div>
+        <div class="controls">
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="replay">Reset</button>
+            <button class="timer-number">150</button>
+        </div>
+        <div class="alliance-headings">
+            <div class="alliance-heading">Red Alliance</div>
+            <div class="alliance-heading">Blue Alliance</div>
+        </div>
+        <div class="alliances">
+            <div class="alliance red">
+                <div class="team-numbers">
+                    <input type="text" value="Team 1">
+                    <input type="text" value="Team 2">
+                    <input type="text" value="Team 3">
+                </div>
+                <div class="objectives">
+                    <div class="objective">
+                        <span>Auto Snow</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Teleop Snow</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Slope Points</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Rock Bonus</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Slope Bonus</span>
+                        <input type="number" value="0">
+                    </div>
+                </div>
+                <div class="total-points">
+                    <span>Total Points:</span>
+                    <input type="number" value="0">
+                    <span>(no leave or spotlight)</span>
+                </div>
+            </div>
+            <div class="alliance blue">
+                <div class="team-numbers">
+                    <input type="text" value="Team 4">
+                    <input type="text" value="Team 5">
+                    <input type="text" value="Team 6">
+                </div>
+                <div class="objectives">
+                    <div class="objective">
+                        <span>Auto Snow</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Teleop Snow</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Slope Points</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Rock Bonus</span>
+                        <input type="number" value="0">
+                    </div>
+                    <div class="objective">
+                        <span>Slope Bonus</span>
+                        <input type="number" value="0">
+                    </div>
+                </div>
+                <div class="total-points">
+                    <span>Total Points:</span>
+                    <input type="number" value="0">
+                    <span>(no leave or spotlight)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+
+    <audio id="audioAuto">
+        <source src="sounds/auto.wav" type="audio/wav">
+    </audio>
+
+    <audio id="audioEnd">
+        <source src="sounds/end.wav" type="audio/wav">
+    </audio>
+
+    <audio id="audioEndgame">
+        <source src="sounds/endgame.wav" type="audio/wav">
+    </audio>
+
+    <audio id="audioFault">
+        <source src="sounds/fault.wav" type="audio/wav">
+    </audio>
+
+    <audio id="audioTeleop">
+        <source src="sounds/teleop.wav" type="audio/wav">
+    </audio>
+
+</body>
+</html>
