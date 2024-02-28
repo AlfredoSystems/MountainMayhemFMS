@@ -1,23 +1,103 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Objectives data
+    var objectivesData = [
+        ["Auto Snow", 3, 1000],
+        ["Teleop Snow", 2, 1000],
+        ["Slope Points", 3, 12],
+        ["Rock Bonus", 6, 6],
+        ["Slope Bonus", 6, 6]
+    ];
+
+    // Get Alliances
+    var alliancesDivs = document.querySelectorAll('.alliance');
+    alliancesDivs.forEach(function(allianceDiv) {
+
+        // Add objectives and inputs
+        var objectivesDiv = allianceDiv.querySelector('.objectives');
+        objectivesData.forEach(function(objective) {
+            var objectiveDiv = document.createElement('div');
+            objectiveDiv.classList.add('objective');
+
+            var span = document.createElement('span');
+            span.textContent = objective[0];
+
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.value = '0';
+
+            var plusButton = document.createElement('button');
+            plusButton.textContent = '+';
+            plusButton.classList.add('plus-button');
+
+            var minusButton = document.createElement('button');
+            minusButton.textContent = '-';
+            minusButton.classList.add('minus-button');
+
+            plusButton.addEventListener('click', function() {
+                var input = plusButton.previousElementSibling;
+                if(parseInt(input.value) < objective[2]){
+                    input.value = parseInt(input.value) + objective[1];
+                }
+                updateTotalPoints();
+            });
+
+            minusButton.addEventListener('click', function() {
+                var input = minusButton.previousElementSibling.previousElementSibling;
+                if (parseInt(input.value) > 0) {
+                    input.value = parseInt(input.value) - objective[1];
+                }
+                updateTotalPoints();
+            });
+
+            objectiveDiv.appendChild(span);
+            objectiveDiv.appendChild(input);
+            objectiveDiv.appendChild(plusButton);
+            objectiveDiv.appendChild(minusButton);
+
+            objectivesDiv.appendChild(objectiveDiv);
+        });
+
+        // Add total points span and input
+        var totalPointsDiv = allianceDiv.querySelector('.total-points');
+        var totalPointsSpan = document.createElement('span');
+        totalPointsSpan.textContent = 'Total Points:';
+
+        var totalPointsInput = document.createElement('input');
+        totalPointsInput.type = 'text';
+        totalPointsInput.value = '0';
+
+        totalPointsDiv.appendChild(totalPointsSpan);
+        totalPointsDiv.appendChild(totalPointsInput);
+
+    });
+
+
+    function updateTotalPoints(){
+        // Get Alliances
+        var alliancesDivs = document.querySelectorAll('.alliance');
+        alliancesDivs.forEach(function(allianceDiv) {
+
+            // Add objectives and inputs
+            var objectiveInputDivs = allianceDiv.querySelectorAll('.objectives input');
+
+            let total = 0
+            objectiveInputDivs.forEach(function(input) {
+                total += parseInt(input.value)
+            });
+
+            // Add total points span and input
+            var totalPointsInput = allianceDiv.querySelector('.total-points input');
+            totalPointsInput.value = total;
+        });
+    }
+
+
     const startButton = document.querySelector('.start');
     const stopButton = document.querySelector('.stop');
     const replayButton = document.querySelector('.replay');
     const timerNumber = document.querySelector('.timer-number');
     const timerBar = document.querySelector('.timer-bar');
-
-    const redAmpInput = document.querySelector('.alliance.red input[name="amp"]');
-    const blueAmpInput = document.querySelector('.alliance.blue input[name="amp"]');
-    const redSpeakerInput = document.querySelector('.alliance.red input[name="speaker"]');
-    const blueSpeakerInput = document.querySelector('.alliance.blue input[name="speaker"]');
-    const redTrapInput = document.querySelector('.alliance.red input[name="trap"]');
-    const blueTrapInput = document.querySelector('.alliance.blue input[name="trap"]');
-    const redOnstageInput = document.querySelector('.alliance.red input[name="onstage"]');
-    const blueOnstageInput = document.querySelector('.alliance.blue input[name="onstage"]');
-    const redHarmonyInput = document.querySelector('.alliance.red input[name="harmony"]');
-    const blueHarmonyInput = document.querySelector('.alliance.blue input[name="harmony"]');
-
-    const redTotalPointsInput = document.querySelector('.alliance.red .total-points input');
-    const blueTotalPointsInput = document.querySelector('.alliance.blue .total-points input');
 
     const audioAuto = document.getElementById('audioAuto');
     const audioTeleop = document.getElementById('audioTeleop');
@@ -32,42 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
     startButton.addEventListener('click', startTimer);
     stopButton.addEventListener('click', faultTimer);
     replayButton.addEventListener('click', resetTimer);
-
-    document.addEventListener('keydown', function (event) {
-        let ampScore = 1;
-        let speakerScore = 2;
-
-        if (gameState == 'auto'){
-            ampScore = 2;
-            speakerScore = 5;
-        }
-        
-        if ('q' === event.key.toLowerCase()) {
-            increaseScore(redSpeakerInput, speakerScore);
-        } else if ('9' === event.key.toLowerCase()) {
-            increaseScore(blueSpeakerInput, speakerScore);
-        
-        } else if ('a' === event.key.toLowerCase()) {
-            increaseScore(redAmpInput, ampScore);
-        } else if ('6' === event.key.toLowerCase()) {
-            increaseScore(blueAmpInput, ampScore);
-        
-        } else if ('z' === event.key.toLowerCase()) {
-            increaseScore(redTrapInput, 5, 15);
-        } else if ('3' === event.key.toLowerCase()) {
-            increaseScore(blueTrapInput, 5, 15);
-
-        } else if ('s' === event.key.toLowerCase()) {
-            increaseScore(redOnstageInput, 3, 9);
-        } else if ('5' === event.key.toLowerCase()) {
-            increaseScore(blueOnstageInput, 3, 9);
-
-        } else if ('x' === event.key.toLowerCase()) {
-            increaseScore(redHarmonyInput, 2, 2);
-        } else if ('2' === event.key.toLowerCase()) {
-            increaseScore(blueHarmonyInput, 2, 2);
-        }
-    });
 
     function startTimer() {
         if (gameState == "prematch") {
@@ -105,8 +149,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetTimer() {
         gamestate = "prematch";
         clearInterval(timerInterval);
-        updateTimerDisplay(150);
-
+        timeLeft = 150
+        updateTimerDisplay(timeLeft);
+        
         let redObjectives = [redAmpInput,redSpeakerInput,redTrapInput,redOnstageInput,redHarmonyInput];
         let blueObjectives = [blueAmpInput,blueSpeakerInput,blueTrapInput,blueOnstageInput,blueHarmonyInput];
 
@@ -126,30 +171,6 @@ document.addEventListener('DOMContentLoaded', function () {
         timerNumber.innerHTML = timeLeft;
         let percentageLeft = (timeLeft / 150) * 100;
         timerBar.style.background = `linear-gradient(to right, #4CAF50 ${percentageLeft}%, grey 0%)`;
-    }
-
-    function increaseScore(inputElement, scoreValue, maxScore=1000) {
-        let newValue = parseInt(inputElement.value) + scoreValue;
-        if(newValue <= maxScore) inputElement.value = newValue;
-        updateTotalPoints();
-    }
-
-    function updateTotalPoints() {
-        let redObjectives = [redAmpInput,redSpeakerInput,redTrapInput,redOnstageInput,redHarmonyInput];
-        let blueObjectives = [blueAmpInput,blueSpeakerInput,blueTrapInput,blueOnstageInput,blueHarmonyInput];
-        let redTotal = 0;
-        let blueTotal = 0;
-
-        redObjectives.forEach(element => {
-            redTotal += parseInt(element.value);
-        });
-
-        blueObjectives.forEach(element => {
-            blueTotal += parseInt(element.value);
-        });
-
-        redTotalPointsInput.value = redTotal;
-        blueTotalPointsInput.value = blueTotal;
     }
 
     function playSound(audioElement){

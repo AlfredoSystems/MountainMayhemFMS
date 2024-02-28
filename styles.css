@@ -90,7 +90,7 @@ body {
 }
 
 .team-numbers input {
-    width: 8vw;
+    width: 14vw;
     padding: 2vh;
     margin-bottom: 1vh;
     border: 0.5vh solid #ccc;
@@ -142,8 +142,29 @@ body {
     margin-bottom: 1vh;
     border: 0.5vh solid #ccc;
     border-radius: 1vw;
-    width: 8vw;
+    
     font-weight: bold;
     font-size: 3vh;
+}
+
+/* Plus and minus buttons */
+.plus-button,
+.minus-button {
+    font-size: 2vw;
+    width: 3vw;
+    height: 3vw;
+    font-weight: bold;
+    background-color: #aaa;
+    color: #fff;
+    border: none;
+    border-radius: 0.5vw;
+    margin-left: 1vw;
+    cursor: pointer;
+}
+
+/* Hover effect for buttons */
+.plus-button:hover,
+.minus-button:hover {
+    background-color: #777;
 }
 
