@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Objectives data
     var objectivesData = [
-        ["Auto Snow", 3, 1000],
-        ["Teleop Snow", 2, 1000],
-        ["Slope Points", 3, 12],
-        ["Rock Bonus", 6, 6],
-        ["Slope Bonus", 6, 6]
+        ["Auto Snow", 10, 1000],
+        ["Auto Park", 5, 20],
+        ["Teleop Snow", 5, 1000],
+        ["Endgame Slide Park", 5, 10],
+        ["Endgame Pass Park", 10, 20],
+        ["Slope Bonus", 15, 15],
+        ["Pass Bonus", 10, 10]
     ];
 
     // Get Alliances
