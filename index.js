@@ -5,9 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ["Auto Snow", 10, 1000],
         ["Auto Park", 5, 20],
         ["Teleop Snow", 5, 1000],
-        ["Endgame Slide Park", 5, 10],
-        ["Endgame Pass Park", 10, 20],
-        ["Slope Bonus", 15, 15],
+        ["Endgame Park", 5, 30],
+        ["Rock Bonus", 15, 15],
         ["Pass Bonus", 10, 10]
     ];
 
